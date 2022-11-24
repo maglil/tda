@@ -20,6 +20,23 @@ im = io.imread("Image033.tif")
 
 # Resized dimensions
 
+def mkdir_p(mypath):
+
+    from errno import EEXIST
+    from os import makedirs,path
+
+    try:
+        makedirs(mypath)
+    except OSError as exc: # Python >2.5
+        if exc.errno == EEXIST and path.isdir(mypath):
+            pass
+        else: raise
+		
+datadir = 'data'
+mkdir_p(datadir)
+
+print(datadir)
+
 locs = [[200,200],[200,300],[300,300],[300,200]]
 for i in range(len(locs)):
     m = locs[i][0]
@@ -37,7 +54,7 @@ for i in range(len(locs)):
 
     plt.figure()
     plt.imshow(ch1)
-    plt.savefig("im_"+str(m)+"_"+str(n)+".png")
+    plt.savefig("{}/im_".format(datadir)+str(m)+"_"+str(n)+".png")
    
 
 
@@ -46,4 +63,4 @@ for i in range(len(locs)):
 
     plt.figure()
     plot_diagrams(diagrams)
-    plt.savefig("pd_"+str(m)+"_"+str(n)+".png")
+    plt.savefig("{}/pd_".format(datadir)+str(m)+"_"+str(n)+".png")
